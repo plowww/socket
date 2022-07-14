@@ -52,8 +52,8 @@ public class EchoServer {
 
     public static void main(String[] args) throws IOException {
          
-        // int portNumber = Integer.parseInt(args[0]);
-        int portNumber = 1234;
+        int portNumber = Integer.parseInt(args[0]);
+        // int portNumber = 1234;
          
         try (
             ServerSocket serverSocket =
