@@ -38,24 +38,42 @@ import java.net.*;
 public class EchoClient {
     public static void main(String[] args) throws IOException {
  
-        String hostName = args[0];
-        int portNumber = Integer.parseInt(args[1]);
+        // String hostName = args[0];
+        // int portNumber = Integer.parseInt(args[1]);
+        String hostName = InetAddress.getLocalHost().getHostName();
+        int portNumber = 1234;
  
+        /*
+         * Open a socket.
+         * Open an input stream and output stream to the socket.
+         * Read from and write to the stream according to the server's protocol.
+         * Close the streams.
+         * Close the socket.
+         */
         try (
+            // Open socket
             Socket echoSocket = new Socket(hostName, portNumber);
+            // Open output stream
             PrintWriter out =
                 new PrintWriter(echoSocket.getOutputStream(), true);
+            // Open input stream
             BufferedReader in =
                 new BufferedReader(
                     new InputStreamReader(echoSocket.getInputStream()));
+            // Open input stream for standard input
             BufferedReader stdIn =
                 new BufferedReader(
                     new InputStreamReader(System.in))
         ) {
             String userInput;
+
+            // Read from and write to the stream according to server's protocol.
             while ((userInput = stdIn.readLine()) != null) {
+                if (userInput.toLowerCase().equals("exit")) {
+                    System.exit(0);
+                }
                 out.println(userInput);
-                System.out.println("echo: " + in.readLine());
+                System.out.println("Attack: " + in.readLine());
             }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);

@@ -33,12 +33,27 @@ package com.example.socket;
  */
  
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.*;
  
 public class EchoServer {
+    private static int damageCalculate(String attack) {
+        List<String> attacks = new ArrayList<String>();
+        attacks.add("DarkRainbow");
+        attacks.add("HolyDiver");
+        attacks.add("TalkingStrangers");
+        int mul = 100;
+        if (attacks.contains(attack)) {
+            return mul * attack.length();
+        }
+        return -1;
+    }
+
     public static void main(String[] args) throws IOException {
          
-        int portNumber = Integer.parseInt(args[0]);
+        // int portNumber = Integer.parseInt(args[0]);
+        int portNumber = 1234;
          
         try (
             ServerSocket serverSocket =
@@ -51,7 +66,8 @@ public class EchoServer {
         ) {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                out.println(inputLine);
+                
+                out.println(inputLine + " Damage: " + damageCalculate(inputLine));
             }
         } catch (IOException e) {
             System.out.println("Exception caught when trying to listen on port "
